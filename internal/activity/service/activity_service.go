@@ -61,7 +61,7 @@ func (as ActivityService) DeleteDataService(id string) (domain.Activity, int, er
 	} else {
 		activity, _ := as.ActivitySer.Delete(id)
 
-		return activity, 200, nil
+		return activity, 200, errors.New("Success")
 	}
 
 }

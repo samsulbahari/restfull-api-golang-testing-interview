@@ -101,12 +101,22 @@ func (th TodoHandler) Deletedata(ctx *gin.Context) {
 	_, code, err := th.TodoHan.DeleteService(ctx)
 
 	if err != nil {
-		ctx.JSON(code, gin.H{
-			"status":  "Not Found",
-			"message": err.Error(),
-			"data":    err,
-		})
-		return
+		if err.Error() == "Success" {
+			ctx.JSON(code, gin.H{
+				"status":  "Success",
+				"message": err.Error(),
+				"data":    err,
+			})
+			return
+		} else {
+			ctx.JSON(code, gin.H{
+				"status":  "Not Found",
+				"message": err.Error(),
+				"data":    err,
+			})
+			return
+		}
+
 	}
 	ctx.JSON(code, gin.H{
 		"status":  "Success",
@@ -118,20 +128,12 @@ func (th TodoHandler) Deletedata(ctx *gin.Context) {
 
 func (th TodoHandler) Updatedata(ctx *gin.Context) {
 	var todo domain.TodoUpdate
-	err := ctx.ShouldBindJSON(&todo)
-	if err != nil {
-		ctx.JSON(500, gin.H{
-			"status":  "Bad Request",
-			"message": "Error",
-			"data":    nil,
-		})
-		return
-	}
+	ctx.ShouldBindJSON(&todo)
 
-	todo, code, err := th.TodoHan.UpdateService(ctx, todo)
+	todos, code, err := th.TodoHan.UpdateService(ctx, todo)
 	if err != nil {
 		ctx.JSON(code, gin.H{
-			"status":  "Failed",
+			"status":  "Not Found",
 			"message": err.Error(),
 			"data":    err,
 		})
@@ -140,6 +142,6 @@ func (th TodoHandler) Updatedata(ctx *gin.Context) {
 	ctx.JSON(code, gin.H{
 		"status":  "Success",
 		"message": "Success",
-		"data":    todo,
+		"data":    todos,
 	})
 }

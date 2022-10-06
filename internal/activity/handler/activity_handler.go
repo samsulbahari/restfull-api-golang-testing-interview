@@ -91,19 +91,29 @@ func (ah ActivityHandler) DeleteData(ctx *gin.Context) {
 	id := ctx.Param("id")
 	_, code, err := ah.ActivityHan.DeleteDataService(id)
 	if err != nil {
+		if err.Error() == "Success" {
+			ctx.JSON(code, gin.H{
+				"status":  "Success",
+				"message": err.Error(),
+				"data":    err,
+			})
+			return
+		} else {
+			ctx.JSON(code, gin.H{
+				"status":  "Not Found",
+				"message": err.Error(),
+				"data":    err,
+			})
+			return
+		}
+
+	} else {
 		ctx.JSON(code, gin.H{
-			"status":  "Not Found",
-			"message": err.Error(),
+			"status":  "Success",
+			"message": "Success",
 			"data":    err,
 		})
-		return
 	}
-
-	ctx.JSON(code, gin.H{
-		"status":  "Success",
-		"message": "Success",
-		"data":    err,
-	})
 
 }
 
@@ -122,7 +132,7 @@ func (ah ActivityHandler) UpdateData(ctx *gin.Context) {
 	Activity, code, err := ah.ActivityHan.UpdateService(activites, id)
 	if err != nil {
 		ctx.JSON(code, gin.H{
-			"status":  "Failed",
+			"status":  "Not Found",
 			"message": err.Error(),
 			"data":    err,
 		})

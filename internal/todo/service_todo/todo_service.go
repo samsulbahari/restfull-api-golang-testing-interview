@@ -84,13 +84,13 @@ func (ts TodoService) DeleteService(ctx *gin.Context) (domain.Todo, int, error) 
 		if err != nil {
 			return todo, 500, errors.New("errors delete data")
 		}
-		return todo, 200, nil
+		return todo, 200, errors.New("Success")
 	}
 
 }
 func (ts TodoService) UpdateService(ctx *gin.Context, todoupdate domain.TodoUpdate) (domain.TodoUpdate, int, error) {
 	id := ctx.Param("id")
-	_, err := ts.TodoSer.Getdatabyid(id)
+	todos, err := ts.TodoSer.Getdatabyid(id)
 	if err != nil {
 		msg := fmt.Sprintf("Todo with ID %s Not Found", id)
 		return domain.TodoUpdate{}, 404, errors.New(msg)
@@ -98,6 +98,10 @@ func (ts TodoService) UpdateService(ctx *gin.Context, todoupdate domain.TodoUpda
 		todo, _ := ts.TodoSer.Update(id, todoupdate)
 		id_primary, _ := strconv.Atoi(id)
 		todo.ID = id_primary
+		todo.ActivityGroupId = todos.ActivityGroupId
+		todo.Title = todos.Title
+		todo.IsActive = todos.IsActive
+		todo.Priority = todos.Priority
 		todo.CreatedAt = time.Now()
 		todo.UpdatedAt = time.Now()
 		return todo, 200, nil
