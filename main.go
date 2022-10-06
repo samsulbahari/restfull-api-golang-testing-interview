@@ -6,6 +6,7 @@ import (
 	"golangtesting/internal/activity/repository"
 	"golangtesting/internal/activity/service"
 	"golangtesting/internal/database"
+	"golangtesting/internal/domain"
 	"golangtesting/internal/todo/handler_todo"
 	"golangtesting/internal/todo/repository_todo"
 	"golangtesting/internal/todo/service_todo"
@@ -21,6 +22,9 @@ func main() {
 	}
 	router := gin.Default()
 	db := database.Connetion()
+
+	db.AutoMigrate(&domain.Activity{}, &domain.Todo{})
+
 	ActivityRepo := repository.NewActivityRepository(db)
 	ActivitySer := service.NewActivityService(ActivityRepo)
 	ActivityHand := handler.NewActivityHandler(ActivitySer)

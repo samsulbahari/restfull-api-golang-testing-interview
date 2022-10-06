@@ -22,7 +22,7 @@ func (tr TodoRepository) Getdata() ([]domain.Todo, error) {
 
 func (tr TodoRepository) GetdataByIdActivity(id string) ([]domain.Todo, error) {
 	var todo []domain.Todo
-	err := tr.db.Where("id_activity = ?", id).Find(&todo).Error
+	err := tr.db.Where("activity_group_id = ?", id).Find(&todo).Error
 	return todo, err
 }
 

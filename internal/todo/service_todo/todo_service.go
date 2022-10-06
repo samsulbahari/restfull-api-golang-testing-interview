@@ -58,7 +58,7 @@ func (ts TodoService) GetdataByidService(ctx *gin.Context) (domain.Todo, int, er
 }
 
 func (ts TodoService) CreateService(todo domain.Todo, ctx *gin.Context) (domain.Todo, int, error) {
-	id := todo.IdActivity
+	id := todo.ActivityGroupId
 	_, err := ts.TodoSer.GetActivityId(id)
 	if err != nil {
 		msg := fmt.Sprintf("Activity with activity_group_id %s Not Found", id)
@@ -68,7 +68,7 @@ func (ts TodoService) CreateService(todo domain.Todo, ctx *gin.Context) (domain.
 		if err != nil {
 			return todo, 500, errors.New("error create data todo")
 		}
-		return todo, 200, nil
+		return todo, 201, nil
 	}
 
 }

@@ -70,7 +70,7 @@ func (th TodoHandler) Createdata(ctx *gin.Context) {
 			return
 		}
 
-		if todo.IdActivity == "" {
+		if todo.ActivityGroupId == "" {
 			ctx.JSON(400, gin.H{
 				"status":  "Bad Request",
 				"message": "activity_group_id cannot be null",
