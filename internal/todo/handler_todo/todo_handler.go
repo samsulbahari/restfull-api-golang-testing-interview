@@ -68,9 +68,7 @@ func (th TodoHandler) Createdata(ctx *gin.Context) {
 				"data":    nil,
 			})
 			return
-		}
-
-		if todo.ActivityGroupId == "" {
+		} else {
 			ctx.JSON(400, gin.H{
 				"status":  "Bad Request",
 				"message": "activity_group_id cannot be null",
@@ -78,6 +76,7 @@ func (th TodoHandler) Createdata(ctx *gin.Context) {
 			})
 			return
 		}
+
 	}
 
 	todo, code, err := th.TodoHan.CreateService(todo, ctx)

@@ -15,7 +15,7 @@ type TodoRepo interface {
 	GetdataByIdActivity(id string) ([]domain.Todo, error)
 	Getdatabyid(id string) (domain.Todo, error)
 	Createdata(todo domain.Todo) (domain.Todo, error)
-	GetActivityId(id string) (domain.Activity, error)
+	GetActivityId(id int) (domain.Activity, error)
 	Delete(id string) (domain.Todo, error)
 	Update(id string, todo domain.TodoUpdate) (domain.TodoUpdate, error)
 }
@@ -61,7 +61,7 @@ func (ts TodoService) CreateService(todo domain.Todo, ctx *gin.Context) (domain.
 	id := todo.ActivityGroupId
 	_, err := ts.TodoSer.GetActivityId(id)
 	if err != nil {
-		msg := fmt.Sprintf("Activity with activity_group_id %s Not Found", id)
+		msg := fmt.Sprintf("Activity with activity_group_id %d Not Found", id)
 		return domain.Todo{}, 404, errors.New(msg)
 	} else {
 		todo, err := ts.TodoSer.Createdata(todo)

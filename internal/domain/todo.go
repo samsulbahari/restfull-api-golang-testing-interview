@@ -4,7 +4,7 @@ import "time"
 
 type Todo struct {
 	ID              int       `json:"id"`
-	ActivityGroupId string    `json:"activity_group_id" binding:"required"`
+	ActivityGroupId int       `json:"activity_group_id" binding:"required"`
 	Title           string    `json:"title" binding:"required"`
 	IsActive        string    `json:"is_active"`
 	Priority        string    `json:"priority"`
@@ -15,7 +15,7 @@ type Todo struct {
 
 type TodoUpdate struct {
 	ID              int       `json:"id"`
-	ActivityGroupId string    `json:"activity_group_id"`
+	ActivityGroupId int       `json:"activity_group_id"`
 	Title           string    `json:"title"`
 	IsActive        string    `json:"is_active"`
 	Priority        string    `json:"priority"`

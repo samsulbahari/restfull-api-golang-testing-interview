@@ -38,7 +38,7 @@ func (tr TodoRepository) Createdata(todo domain.Todo) (domain.Todo, error) {
 	return todo, err
 }
 
-func (tr TodoRepository) GetActivityId(id string) (domain.Activity, error) {
+func (tr TodoRepository) GetActivityId(id int) (domain.Activity, error) {
 	var activity domain.Activity
 	err := tr.db.First(&activity, id).Error
 
