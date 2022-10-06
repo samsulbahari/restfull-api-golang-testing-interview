@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.multistage
+    container_name: album-api
+    env_file:
+        - .env
+    environment:
+       - DB_USERNAME
+       - DB_PASSWORD
+       - DB_HOST
+       - DB_PORT
+       - DB_NAME
+    ports:
+      - "3030:3030"
+    networks:
+      - mynet
+networks:
+  course_network:
+    external: true
+    name: course_network
+  mynet:
+    driver: bridge
