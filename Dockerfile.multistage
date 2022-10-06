@@ -22,7 +22,6 @@ FROM alpine
 
 WORKDIR /app
 
-RUN mkdir .env
 
 COPY --from=build /app/golangtesting /app/golangtesting
 
