@@ -102,7 +102,7 @@ func (ts TodoService) UpdateService(ctx *gin.Context, todoupdate domain.TodoUpda
 		id_primary, _ := strconv.Atoi(id)
 		todo.ID = id_primary
 		todo.ActivityGroupId = todos.ActivityGroupId
-		todo.Title = todos.Title
+		todo.Title = todoupdate.Title
 		todo.IsActive = todos.IsActive
 		todo.Priority = todos.Priority
 		todo.CreatedAt = time.Now()

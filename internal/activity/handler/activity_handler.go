@@ -104,15 +104,8 @@ func (ah ActivityHandler) DeleteData(ctx *gin.Context) {
 				"message": err.Error(),
 				"data":    err,
 			})
-			return
 		}
 
-	} else {
-		ctx.JSON(code, gin.H{
-			"status":  "Success",
-			"message": "Success",
-			"data":    err,
-		})
 	}
 
 }
