@@ -22,7 +22,7 @@ func NewTodoHandler(ts TodoService) *TodoHandler {
 	return &TodoHandler{ts}
 }
 
-func (th TodoHandler) Getdata(ctx *gin.Context) {
+func (th *TodoHandler) Getdata(ctx *gin.Context) {
 	todo, code, err := th.TodoHan.GetDataService(ctx)
 
 	if err != nil {
@@ -39,7 +39,7 @@ func (th TodoHandler) Getdata(ctx *gin.Context) {
 	})
 }
 
-func (th TodoHandler) GetdataById(ctx *gin.Context) {
+func (th *TodoHandler) GetdataById(ctx *gin.Context) {
 	todo, code, err := th.TodoHan.GetdataByidService(ctx)
 	if err != nil {
 		ctx.JSON(code, gin.H{
@@ -57,7 +57,7 @@ func (th TodoHandler) GetdataById(ctx *gin.Context) {
 
 }
 
-func (th TodoHandler) Createdata(ctx *gin.Context) {
+func (th *TodoHandler) Createdata(ctx *gin.Context) {
 	var todo domain.Todo
 	err := ctx.ShouldBindJSON(&todo)
 	if err != nil {
@@ -96,7 +96,7 @@ func (th TodoHandler) Createdata(ctx *gin.Context) {
 
 }
 
-func (th TodoHandler) Deletedata(ctx *gin.Context) {
+func (th *TodoHandler) Deletedata(ctx *gin.Context) {
 	_, code, err := th.TodoHan.DeleteService(ctx)
 
 	if err != nil {
@@ -125,7 +125,7 @@ func (th TodoHandler) Deletedata(ctx *gin.Context) {
 
 }
 
-func (th TodoHandler) Updatedata(ctx *gin.Context) {
+func (th *TodoHandler) Updatedata(ctx *gin.Context) {
 	var todo domain.TodoUpdate
 	ctx.ShouldBindJSON(&todo)
 

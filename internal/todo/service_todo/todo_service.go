@@ -28,7 +28,7 @@ func NewTodoService(tr TodoRepo) *TodoService {
 	return &TodoService{tr}
 }
 
-func (ts TodoService) GetDataService(ctx *gin.Context) ([]domain.Todo, int, error) {
+func (ts *TodoService) GetDataService(ctx *gin.Context) ([]domain.Todo, int, error) {
 	query := ctx.Request.URL.Query().Get("activity_group_id")
 	if query == "" {
 		todo, err := ts.TodoSer.Getdata()
@@ -46,7 +46,7 @@ func (ts TodoService) GetDataService(ctx *gin.Context) ([]domain.Todo, int, erro
 
 }
 
-func (ts TodoService) GetdataByidService(ctx *gin.Context) (domain.Todo, int, error) {
+func (ts *TodoService) GetdataByidService(ctx *gin.Context) (domain.Todo, int, error) {
 	id := ctx.Param("id")
 
 	todo, err := ts.TodoSer.Getdatabyid(id)
@@ -57,7 +57,7 @@ func (ts TodoService) GetdataByidService(ctx *gin.Context) (domain.Todo, int, er
 	return todo, 200, nil
 }
 
-func (ts TodoService) CreateService(todo domain.Todo, ctx *gin.Context) (domain.Todo, int, error) {
+func (ts *TodoService) CreateService(todo domain.Todo, ctx *gin.Context) (domain.Todo, int, error) {
 	id := todo.ActivityGroupId
 	_, err := ts.TodoSer.GetActivityId(id)
 	if err != nil {
@@ -76,7 +76,7 @@ func (ts TodoService) CreateService(todo domain.Todo, ctx *gin.Context) (domain.
 
 }
 
-func (ts TodoService) DeleteService(ctx *gin.Context) (domain.Todo, int, error) {
+func (ts *TodoService) DeleteService(ctx *gin.Context) (domain.Todo, int, error) {
 	id := ctx.Param("id")
 	todo, err := ts.TodoSer.Getdatabyid(id)
 	if err != nil {
@@ -91,7 +91,7 @@ func (ts TodoService) DeleteService(ctx *gin.Context) (domain.Todo, int, error) 
 	}
 
 }
-func (ts TodoService) UpdateService(ctx *gin.Context, todoupdate domain.TodoUpdate) (domain.TodoUpdate, int, error) {
+func (ts *TodoService) UpdateService(ctx *gin.Context, todoupdate domain.TodoUpdate) (domain.TodoUpdate, int, error) {
 	id := ctx.Param("id")
 	todos, err := ts.TodoSer.Getdatabyid(id)
 	if err != nil {
