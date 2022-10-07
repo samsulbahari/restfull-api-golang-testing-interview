@@ -64,6 +64,9 @@ func (ts TodoService) CreateService(todo domain.Todo, ctx *gin.Context) (domain.
 		msg := fmt.Sprintf("Activity with activity_group_id %d Not Found", id)
 		return domain.Todo{}, 404, errors.New(msg)
 	} else {
+		todo.Priority = "very-high"
+		todo.IsActive = true
+
 		todo, err := ts.TodoSer.Createdata(todo)
 		if err != nil {
 			return todo, 500, errors.New("error create data todo")

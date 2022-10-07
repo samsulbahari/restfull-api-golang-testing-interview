@@ -76,7 +76,6 @@ func (th TodoHandler) Createdata(ctx *gin.Context) {
 			})
 			return
 		}
-
 	}
 
 	todo, code, err := th.TodoHan.CreateService(todo, ctx)

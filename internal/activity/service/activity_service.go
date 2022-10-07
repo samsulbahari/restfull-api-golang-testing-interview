@@ -67,14 +67,16 @@ func (as ActivityService) DeleteDataService(id string) (domain.Activity, int, er
 }
 
 func (as ActivityService) UpdateService(activities domain.Activity, id string) (domain.Activity, int, error) {
-	activity, err := as.ActivitySer.Getdatabyid(id)
+	activitys, err := as.ActivitySer.Getdatabyid(id)
 	if err != nil {
 		msg := fmt.Sprintf("Activity with ID %s Not Found", id)
-		return activity, 404, errors.New(msg)
+		return activitys, 404, errors.New(msg)
 	} else {
 		activity, _ := as.ActivitySer.Update(activities, id)
 		id_primary, _ := strconv.Atoi(id)
 		activity.ID = id_primary
+		activity.Title = activities.Title
+		activity.Email = activitys.Email
 		activity.CreatedAt = time.Now()
 		activity.UpdatedAt = time.Now()
 		return activity, 200, nil
